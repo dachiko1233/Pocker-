@@ -20,8 +20,8 @@ func TestGETPlayer(t *testing.T) {
 
 	store := StubPlayerStore{
 		map[string]int{
-			"Peppr": 20,
-			"Floyd": 10,
+			"Pepper": 20,
+			"Floyd":  10,
 		},
 	}
 
@@ -44,6 +44,20 @@ func TestGETPlayer(t *testing.T) {
 
 		assertResponseBody(t, response.Body.String(), "10")
 
+	})
+
+	t.Run("returns 404 on missing Players", func(t *testing.T) {
+		request := newGetScoreRequest("AEL")
+		response := httptest.NewRecorder()
+
+		server.ServeHTTP(response, request)
+
+		got := response.Code
+		want := http.StatusNotFound
+
+		if got != want {
+			t.Errorf("got status %d want %d", got, want)
+		}
 	})
 }
 

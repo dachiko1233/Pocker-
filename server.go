@@ -15,13 +15,13 @@ type PlayerServer struct {
 }
 
 func (p *PlayerServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	Player := strings.TrimPrefix(r.URL.Path, "/Player")
-	fmt.Fprint(w, p.store.GetPlayerScore(Player))
+	player := strings.TrimPrefix(r.URL.Path, "/players/")
+	fmt.Fprint(w, p.store.GetPlayerScore(player))
 }
 
 func GetPlayerScore(name string) string {
 
-	if name == "Peppr" {
+	if name == "Pepper" {
 		return "20"
 	}
 
