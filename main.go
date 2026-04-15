@@ -8,7 +8,11 @@ import (
 type InMemoryPlayerStore struct{}
 
 func (i *InMemoryPlayerStore) GetPlayerScore(name string) int {
-	return 12
+	return 0
+}
+
+func (i *InMemoryPlayerStore) RecordWin(name string) {
+
 }
 
 func main() {
