@@ -20,18 +20,19 @@ func (p *PlayerServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	switch r.Method {
 	case http.MethodPost:
-		p.ProcessWin(w)
+		p.ProcessWin(w, player)
 	case http.MethodGet:
-		p.showScore(w, r)
+		p.showScore(w, player)
 	}
 
 }
 
-func (p *PlayerServer) showScore(w http.ResponseWriter, r *http.Request, player string) {
+func (p *PlayerServer) showScore(w http.ResponseWriter, player string) {
 	score := p.store.GetPlayerScore(player)
 
 	if score == 0 {
 		w.WriteHeader(http.StatusNotFound)
+		return
 	}
 
 	fmt.Fprint(w, score)
